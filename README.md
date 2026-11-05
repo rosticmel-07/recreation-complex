@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Тиша — сайт відпочинкового комплексу
 
-## Getting Started
+Демо-версія сайту з трьома будинками в Карпатах і онлайн-бронюванням,
+синхронізованим з Google Таблицею адміністратора.
 
-First, run the development server:
+## Запуск
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Відкрийте http://localhost:3000. Без налаштувань сайт працює в **демо-режимі**:
+бронювання зберігаються в пам'яті сервера до перезапуску.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Щоб підключити реальну таблицю, дивіться [google-apps-script/SETUP.md](google-apps-script/SETUP.md).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Структура
 
-## Learn More
+| Шлях | Що там |
+|---|---|
+| `src/app/[locale]/page.tsx` | Головна сторінка |
+| `src/app/[locale]/houses/[slug]/page.tsx` | Сторінка будинку з календарем бронювання |
+| `src/app/api/availability` | Зайняті дати всіх будинків |
+| `src/app/api/booking` | Прийом заявки, перевірка дат, запис у таблицю, Telegram |
+| `src/data/houses.ts` | Будинки: назви, описи, ціни, фото |
+| `src/i18n/dictionaries.ts` | Усі тексти сайту українською та англійською |
+| `src/lib/bookings.ts` | Робота з Google Таблицею та демо-режим |
+| `google-apps-script/` | Скрипт для таблиці та інструкція |
 
-To learn more about Next.js, take a look at the following resources:
+## Що замінити перед запуском
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Фото в `src/data/houses.ts` (зараз стокові з Unsplash).
+- Назву, контакти, адресу та координати карти (`src/i18n/dictionaries.ts`, `src/components/Location.tsx`).
+- Ціни, описи та зручності будинків.
+- Послуги на території (блок «Що є на території»).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Технології
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 16 (App Router), TypeScript, CSS Modules, GSAP + ScrollTrigger, Lenis.
+Шрифти: Unbounded (заголовки) та Onest (текст).

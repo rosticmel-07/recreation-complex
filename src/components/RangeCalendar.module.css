@@ -1,0 +1,269 @@
+.calendar {
+  --cell: clamp(38px, 11vw, 48px);
+  --sel: var(--spruce);
+  --sel-fg: var(--fog);
+  --band: rgba(52, 68, 58, 0.12);
+  width: 100%;
+  user-select: none;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.hint {
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.navs {
+  display: flex;
+  gap: 8px;
+}
+
+.nav {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
+}
+
+.nav:hover:not(:disabled) {
+  background: var(--spruce);
+  border-color: var(--spruce);
+  color: var(--fog);
+}
+
+.nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.months {
+  display: grid;
+  min-width: 0;
+  gap: 40px;
+  animation: slide-in 0.55s var(--ease-out);
+}
+
+.months[data-dir="-1"] {
+  animation-name: slide-in-back;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+@keyframes slide-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+}
+
+.monthTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.25rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+
+.monthTitle span {
+  color: var(--granite);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  row-gap: 4px;
+}
+
+.weekday {
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  color: var(--granite);
+}
+
+.day {
+  position: relative;
+  height: var(--cell);
+  display: grid;
+  place-items: center;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  isolation: isolate;
+}
+
+.day span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--cell);
+  max-width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+
+.day:not(:disabled):hover span {
+  background: rgba(19, 32, 27, 0.08);
+}
+
+.day[data-today] span::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--alpen-deep);
+}
+
+.day[data-past] {
+  color: rgba(19, 32, 27, 0.25);
+  cursor: default;
+}
+
+/* Booked nights: struck through with a fine diagonal */
+.day[data-booked] {
+  color: rgba(19, 32, 27, 0.35);
+  cursor: not-allowed;
+}
+
+.day[data-booked] span::before {
+  content: "";
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 50%;
+  height: 1px;
+  background: currentColor;
+  transform: rotate(-35deg);
+}
+
+.day[data-dim] {
+  color: rgba(19, 32, 27, 0.25);
+}
+
+/* Range band */
+.day[data-range]::before,
+.day[data-start]::before,
+.day[data-end]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: var(--cell);
+  max-height: 100%;
+  transform: translateY(-50%);
+  background: var(--band);
+  z-index: -1;
+}
+
+.day[data-range]::before {
+  left: 0;
+  right: 0;
+}
+
+.day[data-start]::before {
+  left: 50%;
+  right: 0;
+}
+
+.day[data-end]::before {
+  left: 0;
+  right: 50%;
+}
+
+.day[data-start]:not(:has(~ [data-range], ~ [data-end]))::before {
+  display: none;
+}
+
+.day[data-start] span,
+.day[data-end]:not([data-preview]) span {
+  background: var(--sel);
+  color: var(--sel-fg);
+}
+
+.day[data-end][data-preview] span {
+  box-shadow: inset 0 0 0 1px var(--sel);
+}
+
+.day[data-preview][data-range]::before {
+  background: rgba(52, 68, 58, 0.07);
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.legendBooked {
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(19, 32, 27, 0.2);
+}
+
+.legendBooked::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: 50%;
+  height: 1px;
+  background: rgba(19, 32, 27, 0.5);
+  transform: rotate(-35deg);
+}
+
+.legendSelected {
+  background: var(--sel);
+}
+
+.clear {
+  margin-left: auto;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--ink);
+}
+
+@media (min-width: 768px) {
+  .months[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 4vw, 48px);
+  }
+}

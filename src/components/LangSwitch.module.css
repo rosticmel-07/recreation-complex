@@ -1,0 +1,95 @@
+.switch {
+  --fg: var(--fog);
+  --track: rgba(228, 231, 225, 0.28);
+  --thumb: var(--fog);
+  --thumb-fg: var(--spruce);
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--track);
+  isolation: isolate;
+}
+
+.switch[data-tone="dark"] {
+  --fg: var(--spruce);
+  --track: var(--line);
+  --thumb: var(--spruce);
+  --thumb-fg: var(--fog);
+}
+
+.thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 999px;
+  background: var(--thumb);
+  z-index: -1;
+  transition: transform 0.6s cubic-bezier(0.68, -0.25, 0.27, 1.25), background-color 0.4s;
+}
+
+.switch[data-active="en"] .thumb {
+  transform: translateX(100%);
+}
+
+.option {
+  position: relative;
+  min-width: 44px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  transition: color 0.4s 0.1s;
+}
+
+.option[aria-pressed="true"] {
+  color: var(--thumb-fg);
+}
+
+/* Text roll on hover: the label slides up and a copy rises from below */
+.roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.2;
+  vertical-align: middle;
+  color: transparent;
+}
+
+.roll::before,
+.roll::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  color: var(--fg);
+  transition: transform 0.45s var(--ease-out);
+}
+
+.option[aria-pressed="true"] .roll::before,
+.option[aria-pressed="true"] .roll::after {
+  color: var(--thumb-fg);
+}
+
+.roll::before {
+  top: 0;
+}
+
+.roll::after {
+  top: 100%;
+}
+
+.option:hover .roll::before,
+.option:focus-visible .roll::before {
+  transform: translateY(-100%);
+}
+
+.option:hover .roll::after,
+.option:focus-visible .roll::after {
+  transform: translateY(-100%);
+}

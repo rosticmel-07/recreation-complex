@@ -1,0 +1,232 @@
+.header {
+  --fg: var(--fog);
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  color: var(--fg);
+  transition:
+    transform 0.6s var(--ease-out),
+    background-color 0.5s,
+    color 0.5s,
+    backdrop-filter 0.5s;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--line);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.header[data-solid] {
+  --fg: var(--spruce);
+  background: rgba(228, 231, 225, 0.82);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+
+.header[data-solid]::after {
+  opacity: 1;
+}
+
+.header[data-open] {
+  --fg: var(--fog);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.header[data-open]::after {
+  opacity: 0;
+}
+
+.header[data-hidden] {
+  transform: translateY(-100%);
+}
+
+:global(html[data-intro]) .header {
+  transform: translateY(-110%);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: var(--header-h);
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+}
+
+.nav {
+  display: none;
+  gap: 36px;
+}
+
+.link {
+  position: relative;
+  font-size: 0.9375rem;
+  padding-block: 6px;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.actions .cta {
+  display: none;
+  min-height: 46px;
+  padding-inline: 22px;
+  font-size: 0.9375rem;
+}
+
+.burger {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  border-color: color-mix(in srgb, currentColor 35%, transparent);
+}
+
+.burger span {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.burger span:first-child {
+  top: 19px;
+}
+
+.burger span:last-child {
+  top: 25px;
+}
+
+.header[data-open] .burger span:first-child {
+  transform: translateY(3px) rotate(45deg);
+}
+
+.header[data-open] .burger span:last-child {
+  transform: translateY(-3px) rotate(-45deg);
+}
+
+/* Full-screen menu for phones and tablets */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--header-h) + 40px) var(--gutter) 32px;
+  background: var(--spruce);
+  color: var(--fog);
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path 0.8s var(--ease-inout),
+    visibility 0s 0.8s;
+}
+
+.menu[data-open] {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition: clip-path 0.8s var(--ease-inout);
+}
+
+.menuNav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menuLink {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 9vw, 3.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  transform: translateY(30px);
+  opacity: 0;
+  transition:
+    transform 0.8s var(--ease-out),
+    opacity 0.6s;
+}
+
+.menu[data-open] .menuLink {
+  transform: none;
+  opacity: 1;
+}
+
+.menuFoot {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  color: rgba(228, 231, 225, 0.75);
+}
+
+@media (min-width: 768px) {
+  .actions .cta {
+    display: inline-flex;
+  }
+
+  .menuFoot {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1200px) {
+  .nav {
+    display: flex;
+  }
+
+  .burger {
+    display: none;
+  }
+
+  .menu {
+    display: none;
+  }
+}

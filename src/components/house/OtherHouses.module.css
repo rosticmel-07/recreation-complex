@@ -1,0 +1,55 @@
+.section {
+  padding-bottom: var(--section);
+}
+
+.grid {
+  display: grid;
+  gap: 40px;
+  margin-top: clamp(32px, 5vw, 56px);
+}
+
+.card {
+  display: grid;
+  gap: 18px;
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+}
+
+.photo img {
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.card:hover .photo img {
+  transform: scale(1.05);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+.meta h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.035em;
+}
+
+.meta p {
+  color: var(--ink-soft);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}

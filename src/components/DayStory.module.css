@@ -1,0 +1,233 @@
+.section {
+  --p: 0;
+  position: relative;
+  height: calc(var(--count) * 85svh + 100svh);
+  background: var(--spruce);
+  color: var(--fog);
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.frames {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+/* Each new moment wipes in from the bottom over the previous one */
+.frame {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.1s var(--ease-inout);
+}
+
+.frame img {
+  object-fit: cover;
+  transform: scale(1.12);
+  transition: transform 2.4s var(--ease-out);
+}
+
+.frame[data-state="past"],
+.frame[data-state="active"] {
+  clip-path: inset(0 0 0 0);
+}
+
+.frame[data-state="active"] {
+  z-index: 1;
+}
+
+.frame[data-state="active"] img {
+  transform: scale(1);
+}
+
+.frame[data-state="past"] {
+  transition-delay: 1.1s;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(180deg, rgba(19, 32, 27, 0.55) 0%, rgba(19, 32, 27, 0) 30%),
+    linear-gradient(0deg, rgba(19, 32, 27, 0.92) 0%, rgba(19, 32, 27, 0.45) 45%, rgba(19, 32, 27, 0.15) 75%);
+}
+
+.content {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding-top: calc(var(--header-h) + 24px);
+  padding-bottom: clamp(20px, 4vh, 40px);
+}
+
+.title {
+  font-size: var(--fs-small);
+  font-weight: 400;
+  color: rgba(228, 231, 225, 0.75);
+}
+
+.moment {
+  align-self: end;
+  display: grid;
+  gap: 18px;
+  padding-bottom: clamp(28px, 6vh, 64px);
+}
+
+.time {
+  display: flex;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(4.5rem, 2rem + 13vw, 14rem);
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+
+.time span {
+  display: inline-block;
+  animation: digit-in 0.9s var(--ease-out) both;
+}
+
+@keyframes digit-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+.copy {
+  display: grid;
+  gap: 8px;
+  max-width: 44ch;
+  animation: copy-in 0.9s 0.15s var(--ease-out) both;
+}
+
+@keyframes copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.copy h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.copy p {
+  color: rgba(228, 231, 225, 0.8);
+}
+
+.cta {
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition:
+    opacity 0.6s,
+    transform 0.8s var(--ease-out);
+}
+
+.cta[data-visible] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition-delay: 0.4s;
+}
+
+/* Ruler of the day */
+.rulerWrap {
+  position: relative;
+}
+
+.ruler {
+  display: grid;
+  grid-template-columns: repeat(var(--count), 1fr);
+  border-top: 1px solid var(--line-light);
+}
+
+.progress {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--alpen);
+  transform-origin: left;
+  transform: scaleX(var(--p));
+}
+
+.ruler li button {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  width: 100%;
+  padding-top: 12px;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(228, 231, 225, 0.45);
+  transition: color 0.4s;
+}
+
+.ruler li i {
+  width: 1px;
+  height: 8px;
+  margin-top: -13px;
+  background: currentColor;
+}
+
+.ruler li[data-state="past"] button {
+  color: rgba(228, 231, 225, 0.7);
+}
+
+.ruler li[data-state="active"] button {
+  color: var(--alpen);
+}
+
+.ruler li button:hover {
+  color: var(--fog);
+}
+
+@media (min-width: 768px) {
+  .ruler li button {
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .moment {
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    column-gap: 56px;
+  }
+
+  .time {
+    grid-row: 1 / 3;
+  }
+
+  .copy {
+    padding-bottom: 0.6em;
+  }
+
+  .cta {
+    grid-column: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame,
+  .frame img {
+    transition: none;
+  }
+}

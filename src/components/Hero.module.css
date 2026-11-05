@@ -1,0 +1,154 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  color: var(--fog);
+  background: var(--spruce);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.photo {
+  object-fit: cover;
+  object-position: 50% 40%;
+  will-change: transform;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(19, 32, 27, 0.45) 0%, rgba(19, 32, 27, 0) 28%),
+    linear-gradient(0deg, rgba(19, 32, 27, 0.78) 0%, rgba(19, 32, 27, 0.25) 45%, rgba(19, 32, 27, 0) 70%);
+}
+
+/* Intro: the word is cut out of a spruce veil, the photo shows through the letters */
+.mask {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.veil {
+  fill: var(--spruce);
+}
+
+.word {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: min(19vw, 40vh);
+  letter-spacing: -0.06em;
+  will-change: transform;
+}
+
+.place {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(32px, 8vh, 72px);
+  z-index: 6;
+  transform: translateX(-50%);
+  font-size: var(--fs-small);
+  color: rgba(228, 231, 225, 0.7);
+  white-space: nowrap;
+  visibility: hidden;
+}
+
+:global(html[data-intro]) .place {
+  visibility: visible;
+}
+
+.content {
+  position: relative;
+  padding-top: calc(var(--header-h) + 48px);
+  padding-bottom: clamp(24px, 5vh, 56px);
+}
+
+.kicker {
+  font-size: var(--fs-small);
+  color: rgba(228, 231, 225, 0.8);
+  margin-bottom: 20px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--fs-hero);
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  max-width: 16ch;
+  margin-bottom: clamp(28px, 5vh, 56px);
+  text-wrap: balance;
+}
+
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.line > span {
+  display: block;
+}
+
+.scroll {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .title {
+    max-width: 18ch;
+  }
+}
+
+@media (min-width: 1200px) {
+  .title {
+    max-width: none;
+  }
+
+  .scroll {
+    position: absolute;
+    right: var(--gutter);
+    top: 50%;
+    display: block;
+    width: 1px;
+    height: 88px;
+    background: rgba(228, 231, 225, 0.25);
+    overflow: hidden;
+  }
+
+  .scroll span {
+    position: absolute;
+    inset: 0;
+    background: var(--fog);
+    animation: scroll-cue 2.4s var(--ease-inout) infinite;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@media (max-width: 767px) {
+  .word {
+    font-size: 23vw;
+  }
+}

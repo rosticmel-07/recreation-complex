@@ -1,0 +1,117 @@
+.hero {
+  position: relative;
+  min-height: 92svh;
+  display: flex;
+  align-items: flex-end;
+  color: var(--fog);
+  background: var(--spruce);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.photo {
+  object-fit: cover;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(19, 32, 27, 0.5) 0%, rgba(19, 32, 27, 0) 25%),
+    linear-gradient(0deg, rgba(19, 32, 27, 0.85) 0%, rgba(19, 32, 27, 0.2) 50%, rgba(19, 32, 27, 0) 75%);
+}
+
+.content {
+  padding-top: calc(var(--header-h) + 48px);
+  padding-bottom: clamp(28px, 5vh, 56px);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(20px, 4vh, 40px);
+  font-size: var(--fs-small);
+  color: rgba(228, 231, 225, 0.8);
+  transition: color 0.3s;
+}
+
+.back:hover {
+  color: var(--fog);
+}
+
+.back svg {
+  transition: transform 0.4s var(--ease-out);
+}
+
+.back:hover svg {
+  transform: translateX(-4px);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3.25rem, 1.5rem + 9vw, 11rem);
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+  margin-left: -0.04em;
+}
+
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.line > span {
+  display: block;
+}
+
+.tagline {
+  max-width: 34ch;
+  margin-top: 16px;
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.3rem);
+  color: rgba(228, 231, 225, 0.85);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-top: clamp(28px, 5vh, 56px);
+  border-top: 1px solid var(--line-light);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 0 0;
+}
+
+.fact dt {
+  font-size: 0.75rem;
+  color: rgba(228, 231, 225, 0.6);
+}
+
+.fact dd {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 768px) {
+  .facts {
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    column-gap: clamp(32px, 6vw, 96px);
+  }
+}

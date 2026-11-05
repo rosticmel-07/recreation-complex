@@ -1,0 +1,429 @@
+.section {
+  padding-block: var(--section);
+}
+
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+/* Phones and tablets: title, text, map, then the card for the tapped point right under the map */
+.text {
+  display: contents;
+}
+
+.mapWrap {
+  order: 1;
+  margin-top: 8px;
+}
+
+.card {
+  order: 2;
+}
+
+.lead {
+  max-width: 40ch;
+  font-size: 1.125rem;
+  color: var(--ink-soft);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: 8px clamp(20px, 4vw, 40px);
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.facts dt {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  letter-spacing: -0.03em;
+}
+
+.facts dd {
+  font-size: 0.8125rem;
+  color: var(--granite);
+  max-width: 14ch;
+  line-height: 1.35;
+}
+
+/* Card for the selected point */
+.card {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 14px;
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+  animation: card-in 0.6s var(--ease-out);
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.cardPhoto {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cardPhoto img {
+  object-fit: cover;
+}
+
+.cardBody {
+  display: grid;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.cardBody h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.375rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.cardBody > p {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.cardElev {
+  font-size: 0.75rem;
+  color: var(--alpen-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.cardLink {
+  justify-self: start;
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+/* Map */
+.mapWrap {
+  display: grid;
+  gap: 12px;
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.map {
+  position: relative;
+  aspect-ratio: 10 / 7;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ring {
+  fill: none;
+  stroke: rgba(52, 68, 58, 0.22);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.ringMajor {
+  composes: ring;
+  stroke: rgba(52, 68, 58, 0.42);
+  stroke-width: 1.4;
+}
+
+.elevLabel {
+  font-family: var(--font-body);
+  font-size: 15px;
+  fill: var(--granite);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 6px;
+}
+
+.stream {
+  fill: none;
+  stroke: #8fb0b8;
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.streamLabel {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-style: italic;
+  fill: #6f949c;
+}
+
+.trail {
+  fill: none;
+  stroke: var(--moss);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.7;
+}
+
+.trailOut {
+  composes: trail;
+  stroke-dasharray: 8 6;
+}
+
+.measure line {
+  stroke: var(--alpen-deep);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+  vector-effect: non-scaling-stroke;
+  animation: draw-line 0.8s var(--ease-out);
+}
+
+.measure text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  text-anchor: middle;
+  fill: var(--alpen-deep);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 6px;
+  animation: fade-in 0.6s 0.2s both;
+}
+
+@keyframes draw-line {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.legend line {
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.legend text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  text-anchor: middle;
+  fill: var(--ink-soft);
+}
+
+.north {
+  fill: var(--ink);
+}
+
+/* Markers sit on top of the SVG as real buttons */
+.marker {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translate(-7px, -50%);
+  padding: 4px;
+  z-index: 1;
+}
+
+.marker[data-active] {
+  z-index: 2;
+}
+
+.marker[data-side="left"] {
+  flex-direction: row-reverse;
+  transform: translate(calc(-100% + 7px), -50%);
+}
+
+.dot {
+  position: relative;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--spruce);
+  box-shadow: 0 0 0 3px var(--paper);
+  transition:
+    background-color 0.3s,
+    transform 0.4s var(--ease-out);
+}
+
+.marker[data-kind="place"] .dot {
+  width: 10px;
+  height: 10px;
+  margin: 2px;
+  background: var(--paper);
+  box-shadow:
+    inset 0 0 0 2px var(--moss),
+    0 0 0 3px var(--paper);
+}
+
+.marker[data-active] .dot {
+  background: var(--alpen-deep);
+  transform: scale(1.25);
+}
+
+.marker[data-kind="place"][data-active] .dot {
+  box-shadow:
+    inset 0 0 0 5px var(--alpen-deep),
+    0 0 0 3px var(--paper);
+}
+
+.marker[data-active] .dot::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--alpen-deep);
+  animation: ping 1.8s var(--ease-out) infinite;
+}
+
+@keyframes ping {
+  from {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.label {
+  white-space: nowrap;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(241, 243, 238, 0.9);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.marker[data-kind="house"] .label {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.marker[data-active] .label {
+  background: var(--spruce);
+  color: var(--fog);
+}
+
+.marker:hover .label {
+  color: var(--ink);
+}
+
+.marker[data-active]:hover .label {
+  color: var(--fog);
+}
+
+/* Small screens: only house names stay visible on the map, places show a dot */
+@media (max-width: 767px) {
+  .marker[data-kind="place"]:not([data-active]) .label {
+    display: none;
+  }
+
+  .marker {
+    padding: 8px;
+    transform: translate(-11px, -50%);
+  }
+
+  .marker[data-side="left"] {
+    transform: translate(calc(-100% + 11px), -50%);
+  }
+
+  .label {
+    font-size: 0.6875rem;
+    padding: 2px 8px;
+  }
+
+  .marker[data-kind="house"] .label {
+    font-size: 0.75rem;
+  }
+
+  .card {
+    grid-template-columns: 88px 1fr;
+  }
+}
+
+.hint {
+  padding-inline: var(--gutter);
+  font-size: var(--fs-small);
+  color: var(--granite);
+}
+
+@media (min-width: 768px) {
+  .mapWrap {
+    margin-inline: 0;
+  }
+
+  .map {
+    border-radius: 24px;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+
+  .hint {
+    padding-inline: 0;
+  }
+
+  .card {
+    max-width: 560px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: 4fr 8fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+  }
+
+  .mapWrap {
+    margin-top: 0;
+  }
+
+  .card {
+    grid-template-columns: 136px 1fr;
+    margin-top: 8px;
+  }
+
+  .cardPhoto {
+    aspect-ratio: 3 / 4;
+  }
+}

@@ -1,0 +1,160 @@
+.bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  padding: 6px;
+  border-radius: 24px;
+  background: rgba(241, 243, 238, 0.94);
+  color: var(--ink);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 30px 60px -30px rgba(10, 18, 14, 0.5);
+}
+
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-height: 64px;
+  padding: 10px 16px;
+  border-radius: 18px;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+
+.field:first-child {
+  grid-column: 1 / -1;
+}
+
+button.field:hover,
+.field:has(select:hover) {
+  background: rgba(19, 32, 27, 0.05);
+}
+
+.label {
+  font-size: 0.75rem;
+  color: var(--granite);
+}
+
+.select,
+.value {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.value[data-empty] {
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.select {
+  appearance: none;
+  width: 100%;
+  padding: 0 24px 0 0;
+  border: 0;
+  background: transparent
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='m2 4 4 4 4-4' fill='none' stroke='%2313201b' stroke-width='1.4'/%3E%3C/svg%3E")
+    no-repeat right center;
+  cursor: pointer;
+  outline: none;
+}
+
+.field:has(select:focus-visible) {
+  outline: 2px solid var(--alpen-deep);
+  outline-offset: -2px;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: -8px;
+}
+
+.stepper button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.125rem;
+  line-height: 1;
+  transition: background-color 0.3s;
+}
+
+.stepper button:hover:not(:disabled) {
+  background: rgba(19, 32, 27, 0.08);
+}
+
+.stepper button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.stepper output {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.submit {
+  grid-column: 1 / -1;
+  min-height: 60px;
+  border-radius: 18px;
+  margin-top: 4px;
+}
+
+.submit::before {
+  border-radius: 18px;
+}
+
+.sheetFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+@media (min-width: 768px) {
+  .bar {
+    grid-template-columns: 1.3fr 1fr 0.8fr auto;
+    align-items: stretch;
+    border-radius: 999px;
+    padding: 8px;
+  }
+
+  .field {
+    border-radius: 999px;
+    padding: 10px 24px;
+  }
+
+  .field:first-child {
+    grid-column: auto;
+  }
+
+  .field + .field::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 18px;
+    bottom: 18px;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .submit {
+    grid-column: auto;
+    margin: 0;
+    border-radius: 999px;
+    min-height: 64px;
+    padding-inline: 32px;
+  }
+
+  .submit::before {
+    border-radius: 999px;
+  }
+}
