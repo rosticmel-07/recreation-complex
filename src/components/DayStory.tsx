@@ -26,6 +26,7 @@ export default function DayStory() {
   const { t, locale } = useI18n();
   const section = useRef<HTMLElement>(null);
   const [index, setIndex] = useState(0);
+  const [near, setNear] = useState(false);
   const moments = t.day.moments;
   const last = moments.length - 1;
 
@@ -55,6 +56,22 @@ export default function DayStory() {
     };
   }, [last, moments.length]);
 
+  // Start loading all six photos while the visitor is still about two screens above the section,
+  // so every moment already has its photo when they scroll into it.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setNear(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "250% 0px" },
+    );
+    io.observe(section.current!);
+    return () => io.disconnect();
+  }, []);
+
   /** Clicking a time on the ruler scrolls to that moment. */
   const jump = (i: number) => {
     const el = section.current!;
@@ -81,7 +98,17 @@ export default function DayStory() {
               className={styles.frame}
               data-state={i < index ? "past" : i === index ? "active" : "next"}
             >
-              <Image src={src} alt="" fill sizes="100vw" placeholder="blur" />
+              {near && (
+                <Image
+                  src={src}
+                  alt=""
+                  fill
+                  sizes="100vw"
+                  quality={70}
+                  loading="eager"
+                  placeholder="blur"
+                />
+              )}
             </div>
           ))}
           <div className={styles.shade} />
