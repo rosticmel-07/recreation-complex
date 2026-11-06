@@ -95,7 +95,7 @@ export default function HousesShowcase() {
                 onPointerMove={onMove}
                 aria-label={`${t.houses.open}: ${h.name[locale]}`}
               >
-                <Image
+                <Image placeholder="blur"
                   src={h.cover}
                   alt=""
                   fill

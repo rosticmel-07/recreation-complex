@@ -47,9 +47,9 @@ export default function HouseGallery({ slug }: { slug: HouseSlug }) {
         </h2>
         <div className={styles.grid}>
           {images.map((src, i) => (
-            <button key={src} type="button" className={styles.item} onClick={() => setOpen(i)} aria-label={label(i)}>
+            <button key={src.src} type="button" className={styles.item} onClick={() => setOpen(i)} aria-label={label(i)}>
               <Parallax className={styles.frame} amount={10}>
-                <Image src={src} alt="" fill sizes="(min-width: 1200px) 50vw, 100vw" />
+                <Image src={src} alt="" fill sizes="(min-width: 1200px) 50vw, 100vw" placeholder="blur" />
               </Parallax>
             </button>
           ))}
@@ -61,7 +61,7 @@ export default function HouseGallery({ slug }: { slug: HouseSlug }) {
           <div className={styles.lightbox} role="dialog" aria-modal="true" aria-label={label(open)}>
             <button type="button" className={styles.backdrop} onClick={close} aria-label={t.nav.close} />
             <div className={styles.stage}>
-              <Image key={images[open]} src={images[open]} alt="" fill sizes="100vw" className={styles.big} />
+              <Image placeholder="blur" key={images[open].src} src={images[open]} alt="" fill sizes="100vw" className={styles.big} />
             </div>
             <div className={styles.controls}>
               <span className={styles.counter}>

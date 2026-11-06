@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/houses/[
   return {
     title: `${house.name[locale]} — ${t.brand}`,
     description: house.tagline[locale],
-    openGraph: { images: [`${house.cover}?w=1200&q=70&auto=format`] },
+    openGraph: { images: [house.cover.src] },
   };
 }
 

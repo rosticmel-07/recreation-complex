@@ -43,7 +43,7 @@ export default function HouseHero({ slug }: { slug: HouseSlug }) {
   return (
     <section ref={root} className={styles.hero}>
       <div className={styles.media}>
-        <Image className={styles.photo} src={house.cover} alt="" fill priority sizes="100vw" />
+        <Image className={styles.photo} src={house.cover} alt="" fill preload placeholder="blur" sizes="100vw" />
         <div className={styles.shade} />
       </div>
 

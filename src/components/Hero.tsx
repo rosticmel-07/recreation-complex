@@ -104,9 +104,9 @@ export default function Hero() {
           src={photos.hero}
           alt=""
           fill
-          priority
+          preload
+          placeholder="blur"
           sizes="100vw"
-          quality={80}
         />
         <div className={styles.shade} />
       </div>

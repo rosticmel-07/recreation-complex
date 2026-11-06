@@ -30,8 +30,8 @@ export default function Territory() {
 
         <div className={styles.stage} aria-hidden="true">
           {images.map((src, i) => (
-            <div key={src} className={styles.frame} data-active={i === active || undefined}>
-              <Image src={src} alt="" fill sizes="(min-width: 1200px) 44vw, 0px" />
+            <div key={src.src} className={styles.frame} data-active={i === active || undefined}>
+              <Image placeholder="blur" src={src} alt="" fill sizes="(min-width: 1200px) 44vw, 0px" />
             </div>
           ))}
         </div>
@@ -47,7 +47,7 @@ export default function Territory() {
               tabIndex={0}
             >
               <div className={styles.thumb}>
-                <Image src={images[i]} alt="" fill sizes="(min-width: 1200px) 0px, (min-width: 768px) 40vw, 92vw" />
+                <Image placeholder="blur" src={images[i]} alt="" fill sizes="(min-width: 1200px) 0px, (min-width: 768px) 40vw, 92vw" />
               </div>
               <h3 className={styles.title}>{item.title}</h3>
               <p className={styles.text}>{item.text}</p>

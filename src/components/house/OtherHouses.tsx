@@ -22,7 +22,7 @@ export default function OtherHouses({ slug }: { slug: HouseSlug }) {
             return (
               <article key={h.slug} className={styles.card}>
                 <Link href={href} className={styles.photo} tabIndex={-1} aria-hidden="true">
-                  <Image src={h.cover} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" />
+                  <Image placeholder="blur" src={h.cover} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" />
                 </Link>
                 <div className={styles.meta}>
                   <h3>

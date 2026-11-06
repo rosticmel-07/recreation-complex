@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useI18n } from "@/i18n/client";
 import { photos } from "@/data/houses";
+import { photo } from "@/data/images";
 import styles from "./DayStory.module.css";
 
-const u = (id: string) => `https://images.unsplash.com/photo-${id}`;
+const u = photo;
 
 const frames = [
   u("1560793143-8baa3a5238c0"),
@@ -76,11 +77,11 @@ export default function DayStory() {
         <div className={styles.frames} aria-hidden="true">
           {frames.map((src, i) => (
             <div
-              key={src}
+              key={src.src}
               className={styles.frame}
               data-state={i < index ? "past" : i === index ? "active" : "next"}
             >
-              <Image src={src} alt="" fill sizes="100vw" loading="eager" />
+              <Image src={src} alt="" fill sizes="100vw" placeholder="blur" />
             </div>
           ))}
           <div className={styles.shade} />

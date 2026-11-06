@@ -1,4 +1,6 @@
+import type { StaticImageData } from "next/image";
 import type { Locale } from "@/i18n/config";
+import { photo } from "./images";
 
 type L = Record<Locale, string>;
 
@@ -16,12 +18,12 @@ export type House = {
   area: number;
   priceWeekday: number;
   priceWeekend: number;
-  cover: string;
-  gallery: string[];
+  cover: StaticImageData;
+  gallery: StaticImageData[];
   amenities: L[];
 };
 
-const u = (id: string) => `https://images.unsplash.com/photo-${id}`;
+const u = photo;
 
 export const houses: House[] = [
   {

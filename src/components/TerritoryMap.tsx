@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { useI18n } from "@/i18n/client";
 import { houses, photos, type HouseSlug } from "@/data/houses";
@@ -17,7 +17,7 @@ const RING_STEP = 62;
 const TOP_ELEVATION = 985;
 
 type PlaceKey = "gate" | "sauna" | "firepit" | "trails";
-type Point = { id: HouseSlug | PlaceKey; kind: "house" | "place"; x: number; y: number; photo: string };
+type Point = { id: HouseSlug | PlaceKey; kind: "house" | "place"; x: number; y: number; photo: StaticImageData };
 
 const points: Point[] = [
   { id: "smereka", kind: "house", x: 290, y: 300, photo: houses[0].cover },
@@ -95,7 +95,7 @@ export default function TerritoryMap() {
 
           <article className={styles.card} key={current.id} aria-live="polite">
             <div className={styles.cardPhoto}>
-              <Image src={current.photo} alt="" fill sizes="(min-width: 1200px) 30vw, 90vw" />
+              <Image placeholder="blur" src={current.photo} alt="" fill sizes="(min-width: 1200px) 30vw, 90vw" />
             </div>
             <div className={styles.cardBody}>
               <p className={styles.cardElev}>
