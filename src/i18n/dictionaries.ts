@@ -51,6 +51,8 @@ const uk = {
     from: "від",
     perNight: "за ніч",
     open: "Переглянути будинок",
+    book: "Забронювати",
+    details: "Детальніше",
   },
   availability: {
     title: "Вільні дати",
@@ -243,6 +245,8 @@ const en: Dictionary = {
     from: "from",
     perNight: "per night",
     open: "View house",
+    book: "Book",
+    details: "Details",
   },
   availability: {
     title: "Availability",

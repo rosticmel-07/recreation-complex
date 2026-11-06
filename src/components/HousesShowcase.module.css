@@ -119,6 +119,17 @@
   color: rgba(228, 231, 225, 0.72);
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.actions :global(.btn) {
+  flex: 1 1 auto;
+}
+
 .price strong {
   font-family: var(--font-display);
   font-weight: 300;
@@ -164,6 +175,15 @@
   .price {
     grid-row: 2;
   }
+
+  .actions {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
+  .actions :global(.btn) {
+    flex: 0 0 auto;
+  }
 }
 
 /* Desktop: a horizontal gallery that moves with the page scroll */
@@ -198,7 +218,7 @@
 
   .photo {
     aspect-ratio: auto;
-    height: 62vh;
+    height: 56vh;
   }
 
   .photo img {

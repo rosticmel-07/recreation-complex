@@ -122,6 +122,22 @@ export default function HousesShowcase() {
                   <strong>{formatPrice(h.priceWeekday, locale)}</strong>{" "}
                   {t.currency} <span>{t.houses.perNight}</span>
                 </p>
+                <div className={styles.actions}>
+                  <Link
+                    href={`/${locale}/houses/${h.slug}#booking`}
+                    className="btn btn--light"
+                    aria-label={`${t.houses.book}: ${h.name[locale]}`}
+                  >
+                    {t.houses.book}
+                  </Link>
+                  <Link
+                    href={`/${locale}/houses/${h.slug}`}
+                    className="btn btn--ghost"
+                    aria-label={`${t.houses.details}: ${h.name[locale]}`}
+                  >
+                    {t.houses.details}
+                  </Link>
+                </div>
               </div>
             </article>
           ))}

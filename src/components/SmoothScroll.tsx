@@ -49,9 +49,23 @@ export default function SmoothScroll() {
     };
   }, []);
 
+  // After moving to another page: go to the anchor in the address (e.g. #booking) or to the top.
   useEffect(() => {
-    window.__lenis?.scrollTo(0, { immediate: true });
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    let raf = requestAnimationFrame(() => {
+      raf = requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        const target = window.location.hash ? document.querySelector<HTMLElement>(window.location.hash) : null;
+        const lenis = window.__lenis;
+        if (target) {
+          if (lenis) lenis.scrollTo(target, { offset: -20, immediate: true });
+          else target.scrollIntoView();
+        } else {
+          if (lenis) lenis.scrollTo(0, { immediate: true });
+          else window.scrollTo(0, 0);
+        }
+      });
+    });
+    return () => cancelAnimationFrame(raf);
   }, [pathname]);
 
   return null;
